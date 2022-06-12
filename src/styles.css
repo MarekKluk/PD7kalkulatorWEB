@@ -1,3 +1,67 @@
 body {
-  color: red;
+  width: 100vh;
+  height: 100vh;
+  margin: auto;
+  font-family: 'Roboto Flex', sans-serif;
+}
+main {
+  width: 300px;
+  margin: auto;
+}
+.calculator {
+  width: 300px;
+  height: 400px;
+  border-radius: 5px;
+}
+.screen {
+  background: #7986cb;
+  width: 100%;
+  height: 20%;
+}
+.buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: space-between;
+  flex-wrap: wrap;
+  background: #aab6fe;
+  width: 100%;
+  height: 90%;
+}
+.number-button, .operation-button, .delete-button{
+  width: 70px;
+  height: 70px;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  background: #d1d9ff;
+  font-size: 15px;
+}
+.all-clear-button, .equals-button {
+  width: 144px;
+  height: 70px;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  background: #d1d9ff;
+  font-size: 15px;
+}
+
+.current-operation {
+  text-align: right;
+  overflow-wrap: anywhere;
+  height: 50px;
+  font-weight: 200;
+  font-size: 20px;
+}
+.previous-operation {
+  text-align: right;
+  overflow-wrap: anywhere;
+  height: 30px;
+  font-weight: 10;
+  font-size: 14px;
+}
+
+.buttons-hover:hover {
+  background-color: cornflowerblue;
+
 }
