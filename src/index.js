@@ -14,16 +14,19 @@ function clearAll (){
 }
 
 function findingOperandForMultipleComputation (arr){
-    let searchedPosition = null;
+    let searchedOperand = null;
     for(let i of arr) {
         if(i === '*'){
-            return searchedPosition = i;
-        } else if(i === '/') {
-            return searchedPosition = i;
-        } else if(i === '+') {
-            return searchedPosition = i;
-        } else if(i === '-'){
-            return searchedPosition = i;
+            return searchedOperand = i;
+        }
+        else if(i === '/') {
+            return searchedOperand = i;
+        }
+        else if(i === '+') {
+            return searchedOperand = i;
+        }
+        else if(i === '-') {
+            return searchedOperand = i;
         }
     }
 }
@@ -42,8 +45,8 @@ digitButtons.forEach( button =>{
 operandButtons.forEach( button =>{
     button.addEventListener( 'click', (event) =>{
         if(previousOperations.innerText.slice(-1)==='='){
-           previousOperations.innerText = currentOperations.innerText
-            currentOperations.append(button.innerText);
+           previousOperations.innerText = currentOperations.innerText + button.innerText;
+           currentOperations.innerText = '';
         }
         if(isNaN(currentOperations.innerText.slice(-1)) ||
            currentOperations.innerText.slice(-1)==='.' ||
@@ -79,7 +82,7 @@ equalsButton.addEventListener('click', (event) => {
             let previousOperationsToString = previousOperations.innerText.toString();
             let previousOperationsArr = previousOperationsToString.split("");
             let searchedOperand = findingOperandForMultipleComputation(previousOperationsArr);
-            let operandPosition = previousOperationsToString.indexOf(searchedOperand);
+            let operandPosition = previousOperationsToString.indexOf(searchedOperand, 1);
             previousOperations.innerText = previousOperationsToString.slice(operandPosition,-1);
             previousOperations.prepend(currentOperations.innerText);
             currentOperations.innerText = eval(previousOperations.innerText);
