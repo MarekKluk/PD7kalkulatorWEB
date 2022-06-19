@@ -1,4 +1,7 @@
 import './styles.css';
+import {clearAll} from "./functions/clearAll";
+import calculating from "./functions/calculating";
+import equalsButtonFunction from "./functions/addEventListeners/equalsButtonFunction";
 
 const currentOperations = document.querySelector(".current-operation");
 const previousOperations = document.querySelector(".previous-operation");
@@ -8,28 +11,6 @@ const deleteButton = document.querySelector(".delete-button");
 const allClearButton = document.querySelector(".all-clear-button");
 const equalsButton = document.querySelector(".equals-button");
 
-function clearAll (){
-    currentOperations.innerText = '';
-    previousOperations.innerText = '';
-}
-
-function findingOperandForMultipleComputation (arr){
-    let searchedOperand = null;
-    for(let i of arr) {
-        if(i === '*'){
-            return searchedOperand = i;
-        }
-        else if(i === '/') {
-            return searchedOperand = i;
-        }
-        else if(i === '+') {
-            return searchedOperand = i;
-        }
-        else if(i === '-') {
-            return searchedOperand = i;
-        }
-    }
-}
 
 digitButtons.forEach( button =>{
     button.addEventListener( 'click', (event) =>{
@@ -43,6 +24,7 @@ digitButtons.forEach( button =>{
 });
 
 operandButtons.forEach( button =>{
+    button.classList.add("digitButton");
     button.addEventListener( 'click', (event) =>{
         if(previousOperations.innerText.slice(-1)==='='){
            previousOperations.innerText = currentOperations.innerText + button.innerText;
@@ -55,7 +37,8 @@ operandButtons.forEach( button =>{
         }
         else {
             if(isNaN(previousOperations.innerText.slice(-1))){
-                previousOperations.innerText = (eval(previousOperations.innerText+ currentOperations.innerText));
+                let OperationHelper = previousOperations.innerText + currentOperations.innerText;
+                previousOperations.innerText= calculating(OperationHelper);
                 previousOperations.append(button.innerText);
                 currentOperations.innerText = '';
             }
@@ -77,20 +60,6 @@ deleteButton.addEventListener('click', (event) => {
     currentOperations.innerText = string.slice(0, -1);
 });
 
-equalsButton.addEventListener('click', (event) => {
-        if(previousOperations.innerText.slice(-1)==='='){
-            let previousOperationsToString = previousOperations.innerText.toString();
-            let previousOperationsArr = previousOperationsToString.split("");
-            let searchedOperand = findingOperandForMultipleComputation(previousOperationsArr);
-            let operandPosition = previousOperationsToString.indexOf(searchedOperand, 1);
-            previousOperations.innerText = previousOperationsToString.slice(operandPosition,-1);
-            previousOperations.prepend(currentOperations.innerText);
-            currentOperations.innerText = eval(previousOperations.innerText);
-            previousOperations.append('=');
-        }
-        else {
-            previousOperations.append(currentOperations.innerText);
-            currentOperations.innerText = eval(previousOperations.innerText);
-            previousOperations.append('=');
-        }
-});
+
+equalsButton.addEventListener('click',equalsButtonFunction);
+
